@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
-import CurrencyConverter from './components/concerter/CurrencyConverter';
+import CurrencyConverter from './components/converter/CurrencyConverter';
 import HistoricalRates from './components/HistoricalRates';
 import MultiCurrencyConverter from './components/multi/MultiCurrencyConverter';
 import './App.css';
