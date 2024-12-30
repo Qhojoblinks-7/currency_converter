@@ -268,3 +268,4 @@ This project is licensed under the MIT License.
 - [Exchange Rate API](https://exchangerate-api.com/)
 - [Free Currency API](https://freecurrencyapi.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
+
