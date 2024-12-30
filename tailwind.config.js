@@ -4,6 +4,9 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  rollupOptions: {
+      external: ['react-router-dom']
+    },
   theme: {
     extend: {
       
