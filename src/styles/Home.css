@@ -1,0 +1,207 @@
+/* Home Page Container */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: linear-gradient(to top, #ffffff 0.8, #290303 0.8 )/* Light background color for the page */
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #4caf50 0%, #81c784 100%);
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    animation: fadeIn 2s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    animation: slideInFromLeft 1s ease-in-out;
+  }
+  
+  @keyframes slideInFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .hero-description {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+    animation: slideInFromRight 1s ease-in-out;
+  }
+  
+  @keyframes slideInFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .hero-button {
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #4caf50;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+  
+  .hero-button:hover {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  /* Features Section */
+  .features-section {
+    text-align: center;
+    width: 100%;
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  .features-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .features-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    animation: zoomIn 1s ease-in-out;
+  }
+  
+  @keyframes zoomIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .feature-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: left;
+    transition: transform 0.3s ease-in-out;
+    animation: slideUp 1s ease-in-out;
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .feature-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .feature-description {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  /* Acknowledgements, About Project, and Thanks Giving Sections */
+  .acknowledgements-section,
+  .about-project-section,
+  .thanks-section {
+    text-align: center;
+    width: 100%;
+    margin-top: 40px;
+    padding: 40px 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .section-description {
+    font-size: 1.25rem;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  /* Footer Section */
+  .footer-section {
+    margin-top: 40px;
+    padding: 20px;
+    background: #333;
+    color: white;
+    text-align: center;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .social-link {
+    color: white;
+    text-decoration: none;
+    font-size: 1.25rem;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .social-link:hover {
+    color: #4caf50;
+  }
+  

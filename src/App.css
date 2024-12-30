@@ -1,0 +1,54 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+
+html {
+  
+  background: #000428; /* Fallback for browsers that do not support gradients */
+  background: -webkit-radial-gradient(circle , #1306d0 10%, #00052e 90%); /* For Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(circle, #1306d0 10%, #00052e 90%); /* For Opera 11.1 to 12.0 */
+  background: -moz-radial-gradient(circle, #1306d0 10%, #00052e 90%); /* For Firefox 3.6 to 15 */
+  background: radial-gradient(circle, #1306d0 10%, #00052e 90%); /* Standard syntax */
+  animation: colorAnimation 15s infinite alternate;
+}
+

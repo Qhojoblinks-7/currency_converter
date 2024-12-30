@@ -1,0 +1,21 @@
+.container {
+  max-width: 96rem; /* Tailwind's max-w-6xl equivalent */
+  margin: 0 auto;
+  padding: 1.5rem; /* Tailwind's p-6 equivalent */
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+  background: linear-gradient(
+    to bottom,
+    rgba(23, 1, 1, 0.2),
+    rgba(0, 0, 0, 0.1)
+  ); /* Optional gradient */
+  color: #1a202c; /* Dark text */
+  min-height: 100vh; /* Tailwind's min-h-screen equivalent */
+}
+
+.country-selector {
+  margin-bottom: 2rem; /* Tailwind's mb-8 equivalent */
+  background: rgba(255, 255, 255, 0.8); /* Semi-transparent background for the country selector */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 1rem; /* Add padding */
+}
