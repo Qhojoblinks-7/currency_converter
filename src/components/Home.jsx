@@ -6,57 +6,91 @@ const Home = () => {
   return (
     <div className="home-container">
       <header className="hero-section">
-        <h1 className="hero-title">Welcome to the Currency Converter Project</h1>
-        <p className="hero-description">
-          Discover the power of accurate and up-to-date currency conversion. Our project offers seamless currency conversion, historical exchange rates, and multi-currency comparisons.
-        </p>
-        <Link to="/converter" className="hero-button">Get Started</Link>
-      </header>
-      
-      <section className="features-section">
-        <h2 className="features-title">Features</h2>
-        <div className="features-grid">
-          <Link to="/converter" className="feature-card">
-            <h3 className="feature-title">Real-Time Conversion</h3>
-            <p className="feature-description">Convert currencies in real-time with the latest exchange rates.</p>
-          </Link>
-          <Link to="/historical-rates" className="feature-card">
-            <h3 className="feature-title">Historical Rates</h3>
-            <p className="feature-description">Access historical exchange rates to see trends over time.</p>
-          </Link>
-          <Link to="/multi-currency" className="feature-card">
-            <h3 className="feature-title">Multi-Currency Comparison</h3>
-            <p className="feature-description">Compare multiple currencies and make informed decisions.</p>
-          </Link>
+        <div className="hero-content">
+          <h1 className="hero-title">Currency Converter</h1>
+          <p className="hero-description">
+            Seamlessly convert currencies, explore trends, and make informed decisions.
+          </p>
+          <Link to="/converter" className="cta-button">Get Started</Link>
         </div>
+        <div className="hero-image">
+          <img 
+            src="/assets/currency-converter-hero.svg" 
+            alt="Currency Converter" 
+          />
+        </div>
+      </header>
+
+      <section className="features-section">
+        <h2 className="section-title">Why Choose Us?</h2>
+        <div className="features-grid">
+          <div className="feature-card">
+            <img 
+              src="/assets/realtime-conversion.svg" 
+              alt="Real-Time Conversion" 
+              className="feature-icon" 
+            />
+            <h3 className="feature-title">Real-Time Conversion</h3>
+            <p className="feature-description">
+              Get the latest rates instantly for any currency pair.
+            </p>
+            <Link to="/converter" className="learn-more-link">Learn More</Link>
+          </div>
+          <div className="feature-card">
+            <img 
+              src="/assets/historical-rates.svg" 
+              alt="Historical Rates" 
+              className="feature-icon" 
+            />
+            <h3 className="feature-title">Historical Rates</h3>
+            <p className="feature-description">
+              Dive into past exchange rates and spot trends.
+            </p>
+            <Link to="/historical-rates" className="learn-more-link">Learn More</Link>
+          </div>
+          <div className="feature-card">
+            <img 
+              src="/assets/multi-currency.svg" 
+              alt="Multi-Currency Comparison" 
+              className="feature-icon" 
+            />
+            <h3 className="feature-title">Multi-Currency Comparison</h3>
+            <p className="feature-description">
+              Compare multiple currencies at a glance.
+            </p>
+            <Link to="/multi-currency" className="learn-more-link">Learn More</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="about-section">
+        <h2 className="section-title">About This Project</h2>
+        <p className="about-description">
+          Built with precision and care, this platform empowers users to make confident financial decisions through accurate conversions and insights.
+        </p>
       </section>
 
       <section className="acknowledgements-section">
         <h2 className="section-title">Acknowledgements</h2>
-        <p className="section-description">
-          Special thanks to ALX for providing the platform and resources to build this project. This project wouldn't have been possible without the support and guidance from ALX's mentors and community.
+        <p className="acknowledgements-description">
+          We extend our gratitude to ALX for their invaluable mentorship and resources, which made this project possible.
         </p>
       </section>
-      
-      <section className="about-project-section">
-        <h2 className="section-title">About the Project</h2>
-        <p className="section-description">
-          This project aims to provide users with a powerful and accurate currency conversion tool. It includes features like real-time conversion, historical exchange rates, and multi-currency comparisons, all designed to help users make informed financial decisions.
-        </p>
-      </section>
-      
-      <section className="thanks-section">
-        <h2 className="section-title">Thanks Giving</h2>
-        <p className="section-description">
-          A heartfelt thank you to everyone who contributed to this project. Your support, encouragement, and feedback have been invaluable. We appreciate your trust and hope this tool serves you well.
-        </p>
-      </section>
-      
+
       <footer className="footer-section">
-        <div className="social-links">
-          <a href="https://twitter.com/yourprofile" className="social-link">Twitter</a>
-          <a href="https://github.com/yourprofile" className="social-link">GitHub</a>
-          <a href="https://linkedin.com/in/yourprofile" className="social-link">LinkedIn</a>
+        <div className="footer-content">
+          <p className="footer-text">© 2024 Currency Converter Project. All rights reserved.</p>
+          <div className="social-icons">
+            <a href="https://twitter.com/yourprofile" className="social-icon">
+              <img src="/assets/twitter-icon.svg" alt="Twitter" />
+            </a>
+            <a href="https://github.com/yourprofile" className="social-icon">
+              <img src="/assets/github-icon.svg" alt="GitHub" />
+            </a>
+            <a href="https://linkedin.com/in/yourprofile" className="social-icon">
+              <img src="/assets/linkedin-icon.svg" alt="LinkedIn" />
+            </a>
+          </div>
         </div>
       </footer>
     </div>
