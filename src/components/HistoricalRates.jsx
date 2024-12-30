@@ -1,37 +1,91 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
-import {fetchExchangeRates, fetchCurrencyInfo } from '../services/historyService';
+import { fetchExchangeRates, fetchCurrencyInfo } from '../services/historyService';
+import { useHistoricalRates } from '../context/HistoricalRatesContext';
 import 'chart.js/auto';
 import '../styles/HistoricalRates.css';
 
-// Mapping of currency codes to country names
 const defaultCurrencyCountryMap = {
   USD: 'United States',
   EUR: 'European Union',
   GBP: 'United Kingdom',
   JPY: 'Japan',
   CAD: 'Canada',
-  // Add more as needed
+  AUD: 'Australia',
+  CNY: 'China',
+  INR: 'India',
+  CHF: 'Switzerland',
+  ZAR: 'South Africa',
+  NZD: 'New Zealand',
+  SEK: 'Sweden',
+  NOK: 'Norway',
+  DKK: 'Denmark',
+  SGD: 'Singapore',
+  HKD: 'Hong Kong',
+  MXN: 'Mexico',
+  BRL: 'Brazil',
+  RUB: 'Russia',
+  KRW: 'South Korea',
+  ARS: 'Argentina',
+  TRY: 'Turkey',
+  SAR: 'Saudi Arabia',
+  AED: 'United Arab Emirates',
+  THB: 'Thailand',
+  MYR: 'Malaysia',
+  IDR: 'Indonesia',
+  PHP: 'Philippines',
+  PLN: 'Poland',
+  CZK: 'Czech Republic',
+  HUF: 'Hungary',
+  RON: 'Romania',
+  VND: 'Vietnam',
+  NGN: 'Nigeria',
+  GHS: 'Ghana',
+  KES: 'Kenya',
+  UGX: 'Uganda',
+  TZS: 'Tanzania',
+  EGP: 'Egypt',
+  MAD: 'Morocco',
+  CLP: 'Chile',
+  COP: 'Colombia',
+  PEN: 'Peru',
+  ILS: 'Israel',
+  PKR: 'Pakistan',
+  LKR: 'Sri Lanka',
+  BDT: 'Bangladesh',
+  KZT: 'Kazakhstan',
+  UAH: 'Ukraine',
+  IRR: 'Iran',
+  IQD: 'Iraq',
+  JOD: 'Jordan',
+  KWD: 'Kuwait',
+  QAR: 'Qatar',
+  OMR: 'Oman',
+  BHD: 'Bahrain',
 };
 
+
 const HistoricalRates = () => {
+  const { state, dispatch } = useHistoricalRates();
+  const { historicalRates } = state;
   const [baseCurrency, setBaseCurrency] = useState('USD');
   const [targetCurrency, setTargetCurrency] = useState('EUR');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('1');
   const [currentExchangeRate, setCurrentExchangeRate] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(null);
-  const [historicalData, setHistoricalData] = useState(null);
   const [baseCurrencyInfo, setBaseCurrencyInfo] = useState(null);
   const [targetCurrencyInfo, setTargetCurrencyInfo] = useState(null);
-  const [startDate, setStartDate] = useState('2023-01-01');
-  const [endDate, setEndDate] = useState('2023-12-31');
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchCurrencyInfoData(baseCurrency, setBaseCurrencyInfo);
     fetchCurrencyInfoData(targetCurrency, setTargetCurrencyInfo);
     fetchCurrentExchangeRate();
-    if (baseCurrency && targetCurrency) {
-      fetchHistoricalData();
+
+    if (historicalRates.length === 0) {
+      initializeHistoricalRates();
     }
   }, [baseCurrency, targetCurrency, startDate, endDate]);
 
@@ -46,52 +100,50 @@ const HistoricalRates = () => {
   };
 
   const fetchCurrentExchangeRate = async () => {
+    setLoading(true);
     try {
       const exchangeRates = await fetchExchangeRates(baseCurrency);
       setCurrentExchangeRate(exchangeRates[targetCurrency]);
-      setLastUpdated(new Date().toLocaleString()); // Assuming the latest data is fetched
+      setLastUpdated(new Date().toLocaleString());
     } catch (error) {
       setError('Failed to fetch current exchange rate: ' + error.message);
       console.error('Error fetching current exchange rate:', error);
     }
+    setLoading(false);
   };
 
-  const fetchHistoricalData = async () => {
-    try {
-      const data = await fetchHistoricalRates(baseCurrency, targetCurrency, startDate, endDate);
-      console.log('Fetched Historical Data:', data);
-
-      if (data && Object.keys(data).length > 0) {
-        const dates = Object.keys(data).sort((a, b) => new Date(a) - new Date(b));
-        const rates = dates.map(date => data[date]);
-        const targetColors = targetCurrencyInfo?.flag ? [targetCurrencyInfo.flag] : ['#000'];
-        const baseColors = baseCurrencyInfo?.flag ? [baseCurrencyInfo.flag] : ['#000'];
-
-        if (rates.length > 0) {
-          setHistoricalData({
-            labels: dates,
-            datasets: [
-              {
-                label: `${baseCurrency} to ${targetCurrency} Exchange Rate`,
-                data: rates,
-                borderColor: targetColors[0],
-                backgroundColor: baseColors[0],
-                fill: true,
-              },
-            ],
-          });
-          setError(null);
-        } else {
-          throw new Error('No rates found for the selected currencies and dates');
+  const initializeHistoricalRates = async () => {
+    const initialRates = [];
+    for (const base of Object.keys(defaultCurrencyCountryMap)) {
+      for (const target of Object.keys(defaultCurrencyCountryMap)) {
+        if (base !== target) {
+          try {
+            const exchangeRates = await fetchExchangeRates(base);
+            initialRates.push({
+              baseCurrency: base,
+              targetCurrency: target,
+              rate: exchangeRates[target],
+              timestamp: new Date().toISOString(),
+            });
+          } catch (error) {
+            console.error('Error fetching initial exchange rates:', error);
+          }
         }
-      } else {
-        throw new Error('Invalid data format');
       }
-    } catch (error) {
-      setError('Failed to fetch historical data: ' + error.message);
-      console.error('Error fetching historical data:', error);
     }
+    dispatch({ type: 'INITIALIZE_RATES', payload: initialRates });
   };
+
+  const saveHistoricalRate = (rate) => {
+    dispatch({ type: 'ADD_RATE', payload: rate });
+  };
+
+  useEffect(() => {
+    if (currentExchangeRate) {
+      const rate = { baseCurrency, targetCurrency, rate: currentExchangeRate, timestamp: new Date().toISOString() };
+      saveHistoricalRate(rate);
+    }
+  }, [currentExchangeRate]);
 
   const handleBaseCurrencyChange = (event) => {
     setBaseCurrency(event.target.value);
@@ -101,54 +153,67 @@ const HistoricalRates = () => {
     setTargetCurrency(event.target.value);
   };
 
+  const handleStartDateChange = (e) => {
+    if (new Date(e.target.value) <= new Date(endDate)) {
+      setStartDate(e.target.value);
+    }
+  };
+
+  const handleEndDateChange = (e) => {
+    if (new Date(e.target.value) >= new Date(startDate)) {
+      setEndDate(e.target.value);
+    }
+  };
+
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
-        Historical Exchange Rates
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <div>
-          <label
-            htmlFor="start-date"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Start Date:
-          </label>
+    <div className="container">
+    <h1 className="text-center text-white text-3xl font-bold mb-6">Historical Exchange Rates</h1>
+  
+    <div className="form-container bg-gradient-to-r from-blue-50 via-white to-blue-100 p-6 rounded-lg shadow-lg max-w-lg mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="form-group relative">
           <input
             type="date"
             id="start-date"
             value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            onChange={handleStartDateChange}
+            className="form-input peer w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-        </div>
-        <div>
           <label
-            htmlFor="end-date"
-            className="block text-sm font-medium text-gray-700"
+            htmlFor="start-date"
+            className="absolute left-3 top-3 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-500"
           >
-            End Date:
+            Start Date
           </label>
+        </div>
+  
+        <div className="form-group relative">
           <input
             type="date"
             id="end-date"
             value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            onChange={handleEndDateChange}
+            className="form-input peer w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-        </div>
-        <div>
           <label
-            htmlFor="base-currency"
-            className="block text-sm font-medium text-gray-700"
+            htmlFor="end-date"
+            className="absolute left-3 top-3 text-gray-500 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-sm peer-focus:text-blue-500"
           >
-            Base Currency:
+            End Date
+          </label>
+        </div>
+      </div>
+  
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+        <div className="form-group">
+          <label htmlFor="base-currency" className="block text-gray-700 font-medium mb-1">
+            Base Currency
           </label>
           <select
             id="base-currency"
             value={baseCurrency}
             onChange={handleBaseCurrencyChange}
-            className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="form-select w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             {Object.keys(defaultCurrencyCountryMap).map((currency) => (
               <option key={currency} value={currency}>
@@ -157,18 +222,16 @@ const HistoricalRates = () => {
             ))}
           </select>
         </div>
-        <div>
-          <label
-            htmlFor="target-currency"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Target Currency:
+  
+        <div className="form-group">
+          <label htmlFor="target-currency" className="block text-gray-700 font-medium mb-1">
+            Target Currency
           </label>
           <select
             id="target-currency"
             value={targetCurrency}
             onChange={handleTargetCurrencyChange}
-            className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="form-select w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             {Object.keys(defaultCurrencyCountryMap).map((currency) => (
               <option key={currency} value={currency}>
@@ -178,29 +241,55 @@ const HistoricalRates = () => {
           </select>
         </div>
       </div>
+  
+      <div className="mt-6 text-center">
+        <button
+          className="btn-primary w-full sm:w-auto px-6 py-3 bg-blue-500 text-white rounded-lg shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-300 disabled:cursor-not-allowed"
+          onClick={fetchCurrentExchangeRate}
+          disabled={loading}
+        >
+          {loading ? (
+            <div className="flex items-center justify-center space-x-2">
+              <span className="spinner-border animate-spin inline-block w-4 h-4 border-2 border-white rounded-full"></span>
+              <span>Fetching Rates...</span>
+            </div>
+          ) : (
+            'Get Rates'
+          )}
+        </button>
+
+
+
       {currentExchangeRate && (
-        <div className="bg-white border border-gray-300 p-4 rounded-md mb-6">
-          <h2 className="text-lg font-semibold text-blue-600 mb-2">
-            Current Exchange Rate
-          </h2>
-          <p className="text-gray-700">
-            1 {baseCurrency} = {currentExchangeRate} {targetCurrency}
-          </p>
-          <p className="text-sm text-gray-500">Last Updated: {lastUpdated}</p>
+        <div className="bg-white p-4 rounded-lg shadow-lg mt-4">
+          <h2>Current Exchange Rate</h2>
+          <p>{`1 ${baseCurrency} = ${currentExchangeRate} ${targetCurrency}`}</p>
+          <p className="text-gray-500">Last Updated: {lastUpdated}</p>
         </div>
       )}
-      {error ? (
-        <p className="text-center text-red-500 font-medium">{error}</p>
-      ) : (
-        historicalData && (
-          <div className="bg-white border border-gray-300 rounded-md p-4">
-            <Line data={historicalData} options={{ responsive: true }} />
-          </div>
-        )
+
+      {error && <p className="text-red-500">{error}</p>}
+
+      {historicalRates.length > 0 && !error && (
+        <div className="chart-container mt-4">
+          <Line
+            data={{
+              labels: historicalRates.map(rate => new Date(rate.timestamp).toLocaleDateString()),
+              datasets: [{
+                label: `${baseCurrency} to ${targetCurrency} Exchange Rate`,
+                data: historicalRates.map(rate => rate.rate),
+                borderColor: '#3498db',
+                backgroundColor: '#ecf0f1',
+                fill: true,
+              }]
+            }}
+          />
+        </div>
       )}
     </div>
+    </div>
+    </div>
   );
-  
 };
 
 export default HistoricalRates;

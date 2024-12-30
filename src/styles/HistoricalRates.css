@@ -1,77 +1,60 @@
-.historical-rates-container {
-    padding: 20px;
-    background-color: #f0f4f8;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: auto;
-  }
-  
-  .historical-rates-title {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .historical-rates-form {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-  }
-  
-  .historical-rates-label {
-    font-size: 1rem;
-    margin-right: 10px;
-  }
-  
-  .historical-rates-input {
-    padding: 0.5rem;
-    font-size: 1rem;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-  }
-  
-  .historical-rates-button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .historical-rates-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .historical-rates-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .historical-rate-card {
-    background: white;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  
-  .currency {
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
-  
-  .rate {
-    font-size: 1rem;
-    color: #666;
-  }
-  
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.form-container {
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-input, .form-select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+}
+
+.chart-container {
+  margin-top: 2rem;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.text-gray-500 {
+  color: #95a5a6;
+}
+
+.text-red-500 {
+  color: #e74c3c;
+}

@@ -4,6 +4,7 @@ import Home from './components/Home';
 import CurrencyConverter from './components/converter/CurrencyConverter';
 import HistoricalRates from './components/HistoricalRates';
 import MultiCurrencyConverter from './components/multi/MultiCurrencyConverter';
+import { HistoricalRatesProvider } from './context/HistoricalRatesContext';
 import './App.css';
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
   const amount = 100;
 
   return (
+    <HistoricalRatesProvider>
     <Router>
       <div className="App">
         <Routes>
@@ -21,6 +23,7 @@ const App = () => {
         </Routes>
       </div>
     </Router>
+    </HistoricalRatesProvider>
   );
 };
 
