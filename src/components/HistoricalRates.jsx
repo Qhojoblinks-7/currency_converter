@@ -11,67 +11,15 @@ const defaultCurrencyCountryMap = {
   GBP: 'United Kingdom',
   JPY: 'Japan',
   CAD: 'Canada',
-  AUD: 'Australia',
-  CNY: 'China',
-  INR: 'India',
-  CHF: 'Switzerland',
-  ZAR: 'South Africa',
-  NZD: 'New Zealand',
-  SEK: 'Sweden',
-  NOK: 'Norway',
-  DKK: 'Denmark',
-  SGD: 'Singapore',
-  HKD: 'Hong Kong',
-  MXN: 'Mexico',
-  BRL: 'Brazil',
-  RUB: 'Russia',
-  KRW: 'South Korea',
-  ARS: 'Argentina',
-  TRY: 'Turkey',
-  SAR: 'Saudi Arabia',
-  AED: 'United Arab Emirates',
-  THB: 'Thailand',
-  MYR: 'Malaysia',
-  IDR: 'Indonesia',
-  PHP: 'Philippines',
-  PLN: 'Poland',
-  CZK: 'Czech Republic',
-  HUF: 'Hungary',
-  RON: 'Romania',
-  VND: 'Vietnam',
-  NGN: 'Nigeria',
-  GHS: 'Ghana',
-  KES: 'Kenya',
-  UGX: 'Uganda',
-  TZS: 'Tanzania',
-  EGP: 'Egypt',
-  MAD: 'Morocco',
-  CLP: 'Chile',
-  COP: 'Colombia',
-  PEN: 'Peru',
-  ILS: 'Israel',
-  PKR: 'Pakistan',
-  LKR: 'Sri Lanka',
-  BDT: 'Bangladesh',
-  KZT: 'Kazakhstan',
-  UAH: 'Ukraine',
-  IRR: 'Iran',
-  IQD: 'Iraq',
-  JOD: 'Jordan',
-  KWD: 'Kuwait',
-  QAR: 'Qatar',
-  OMR: 'Oman',
-  BHD: 'Bahrain',
 };
-
 
 const HistoricalRates = () => {
   const { state, dispatch } = useHistoricalRates();
   const { historicalRates } = state;
   const [baseCurrency, setBaseCurrency] = useState('USD');
   const [targetCurrency, setTargetCurrency] = useState('EUR');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('1');
+  const [startDate, setStartDate] = useState('2023-01-01');
+  const [endDate, setEndDate] = useState('2023-12-31');
   const [currentExchangeRate, setCurrentExchangeRate] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [baseCurrencyInfo, setBaseCurrencyInfo] = useState(null);
