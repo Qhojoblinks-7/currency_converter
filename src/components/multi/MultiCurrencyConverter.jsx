@@ -4,6 +4,18 @@ import CountrySelector from './CountrySelector';
 import CurrencyList from './CurrencyList';
 import '../../styles/MultiCurrencyConverter.css';
 
+/**
+ * MultiCurrencyConverter Component
+ * 
+ * This component fetches the exchange rates and displays a list of currency conversion cards.
+ * It allows the user to select a country, and based on the selection, the list of conversion cards
+ * is filtered.
+ * 
+ * @param {string} baseCurrency - The base currency code for conversion.
+ * @param {number} amount - The amount in the base currency to be converted.
+ * 
+ * @returns {JSX.Element} A component with a country selector and a list of currency conversions.
+ */
 const currencyCountryMap = {
   USD: 'United States',
   EUR: 'European Union',

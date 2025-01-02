@@ -1,5 +1,17 @@
 import React from 'react';
 
+/**
+ * CountrySelector Component
+ * 
+ * A dropdown component for selecting a country. It triggers an event to update the selected country
+ * and filters the conversion rates based on the selected country.
+ * 
+ * @param {string} selectedCountry - The currently selected country.
+ * @param {function} handleCountryChange - The handler function to update the selected country.
+ * @param {object} currencyCountryMap - A mapping of currency codes to country names.
+ * 
+ * @returns {JSX.Element} A dropdown to select a country.
+ */
 const CountrySelector = ({ selectedCountry, handleCountryChange, currencyCountryMap }) => {
   return (
     <div className="relative group">
