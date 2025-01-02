@@ -1,6 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/Home.css';
+import logoImage from '../assets/logo for a currency converter app.png';
+import realTimeConversionImage from '../assets/Real-Time Conversion.png';
+import historicalRatesImage from '../assets/Historical Rates.png';
+import multiCurrencyComparisonImage from '../assets/Multi-Currency Comparison.png';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
@@ -18,7 +23,7 @@ const Home = () => {
         </div>
         <div className="hero-image">
           <img
-            src="src/assets/logo for a currency converter app.png"
+            src={logoImage}
             alt="Currency Converter"
             className="hero-img"
           />
@@ -31,7 +36,7 @@ const Home = () => {
         <div className="features-grid">
           <div className="feature-card">
             <img
-              src="src/assets/Real-Time Conversion.png"
+              src={realTimeConversionImage}
               alt="Real-Time Conversion"
               className="feature-icon"
             />
@@ -43,7 +48,7 @@ const Home = () => {
           </div>
           <div className="feature-card">
             <img
-              src="src/assets/Historical Rates.png"
+              src={historicalRatesImage}
               alt="Historical Rates"
               className="feature-icon"
             />
@@ -55,7 +60,7 @@ const Home = () => {
           </div>
           <div className="feature-card">
             <img
-              src="src/assets/Multi-Currency Comparison.png"
+              src={multiCurrencyComparisonImage}
               alt="Multi-Currency Comparison"
               className="feature-icon"
             />
