@@ -32,14 +32,24 @@ export const fetchCurrencyInfo = async (currencyCode) => {
   }
 };
 
-export const fetchExchangeRates = async (baseCurrency) => {
+export const fetchExchangeRates = async (baseCurrency, comparisonCurrency, timePeriod = '1m') => {
   try {
-    const url = `${BASE_URL_RATES}/${API_KEY}/latest/${baseCurrency}`;
+    const url = `${BASE_URL_RATES}/${API_KEY}/latest/${baseCurrency}?period=${timePeriod}`;
+
     const data = await fetchWithCache(url);
-    console.log('Exchange Rates:', data.conversion_rates);
-    return data.conversion_rates;
+
+    console.log('API Data:', data); // Log the full data to inspect
+
+    // Return only the rates for the selected currencies
+    const exchangeRates = {
+      baseCurrencyRate: data.conversion_rates[baseCurrency],
+      comparisonCurrencyRate: data.conversion_rates[comparisonCurrency]
+    };
+
+    console.log('Exchange Rates:', exchangeRates);
+    return exchangeRates;
   } catch (error) {
     console.error('Error fetching exchange rates:', error);
-    throw new Error('Network error or invalid API response');
+    throw new Error('Error fetching exchange rates');
   }
 };
