@@ -259,6 +259,7 @@
 
   /* About Section */
   .about-section {
+    font-size: 1.2rem;
     padding: 20px;
     text-align: center;
   }
@@ -270,6 +271,7 @@
 
   /* Acknowledgements Section */
   .acknowledgements-section {
+    font-size: 1.2rem;
     padding: 20px;
     text-align: center;
   }
