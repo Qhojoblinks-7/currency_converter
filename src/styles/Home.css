@@ -229,6 +229,9 @@
     gap: 20px; /* Add spacing between feature cards */
   }
 
+  .section-title {
+    font-size: 1.8rem;
+  }
   .feature-card {
     padding: 15px; /* Add padding inside each card */
     text-align: center; /* Center-align feature content */
@@ -271,7 +274,7 @@
 
   /* Acknowledgements Section */
   .acknowledgements-section {
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 20px;
     text-align: center;
   }
