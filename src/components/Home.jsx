@@ -88,7 +88,7 @@ const Home = () => {
 
       {/* Acknowledgements Section: Acknowledges the people or organizations who supported the project */}
       <section className="acknowledgements-section">
-        <h2 className="section-title">Acknowledgements</h2> {/* Title of the section */}
+        <h2 className="section-title acknowledgements-description">Acknowledgements</h2> {/* Title of the section */}
         <p className="acknowledgements-description">
           We extend our gratitude to ALX for their mentorship, guidance, and resources that helped bring this project to life.
         </p> {/* Description of acknowledgements */}
