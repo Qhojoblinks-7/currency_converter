@@ -5,7 +5,8 @@ import CurrencyInput from './CurrencyInput';
 import FlipButton from './FlipButton';
 import { Link } from 'react-router-dom';
 import '../../styles/CurrencyConverter.css';
-import { debounce } from 'lodash';
+import debounce from 'lodash.debounce';
+
 
 const CurrencyConverter = () => {
   const [rates, setRates] = useState({});
