@@ -1,13 +1,18 @@
-const express = require('express');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+import express from 'express';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const app = express();
+
+// Set up a proxy to handle the API calls
+const BASE_URL_FLAGS = 'https://currency-rate-exchange-api.onrender.com';
+const BASE_URL_RATES = 'https://v6.exchangerate-api.com/v6';
+const BASE_URL_HISTORICAL = 'https://api.freecurrencyapi.com/v1/historical';
 
 // Proxy for Exchange Rate API
 app.use(
   '/api',
   createProxyMiddleware({
-    target: 'https://v6.exchangerate-api.com',
+    target: BASE_URL_RATES,
     changeOrigin: true,
     pathRewrite: {
       '^/api': '',
@@ -19,7 +24,7 @@ app.use(
 app.use(
   '/flag-api',
   createProxyMiddleware({
-    target: 'https://currency-rate-exchange-api.onrender.com',
+    target: BASE_URL_FLAGS,
     changeOrigin: true,
     pathRewrite: {
       '^/flag-api': '',
@@ -27,14 +32,14 @@ app.use(
   })
 );
 
-// Proxy for Open Exchange Rates API for Historical Data
+// Proxy for Historical Rates API
 app.use(
   '/historical',
   createProxyMiddleware({
-    target: 'https://openexchangerates.org',
+    target: BASE_URL_HISTORICAL,
     changeOrigin: true,
     pathRewrite: {
-      '^/historical': '/api/historical',
+      '^/historical': '',
     },
   })
 );

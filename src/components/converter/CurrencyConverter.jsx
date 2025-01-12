@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { fetchCurrencyInfo, fetchExchangeRates } from '../../services/currencyService';
 import CurrencyCard from './CurrencyCard';
 import CurrencyInput from './CurrencyInput';
 import FlipButton from './FlipButton';
 import { Link } from 'react-router-dom';
 import '../../styles/CurrencyConverter.css';
+import { debounce } from 'lodash';
 
 const CurrencyConverter = () => {
   const [rates, setRates] = useState({});
@@ -14,6 +15,19 @@ const CurrencyConverter = () => {
   const [currencyData, setCurrencyData] = useState({});
   const [targetCurrencyData, setTargetCurrencyData] = useState({});
 
+  // Debounced fetch function for target currency
+  const debouncedFetchTargetCurrencyData = useCallback(
+    debounce(async (currency) => {
+      try {
+        const data = await fetchCurrencyInfo(currency);
+        setTargetCurrencyData(data);
+      } catch (error) {
+        console.error('Error fetching target currency data:', error);
+      }
+    }, 500), // Delay in ms
+    []
+  );
+
   useEffect(() => {
     const getCurrencyData = async () => {
       try {
@@ -22,16 +36,17 @@ const CurrencyConverter = () => {
 
         const exchangeRates = await fetchExchangeRates(baseCurrency);
         setRates(exchangeRates);
-
-        const targetData = await fetchCurrencyInfo(targetCurrency);
-        setTargetCurrencyData(targetData);
       } catch (error) {
-        console.error(error);
+        console.error('Error fetching base currency data:', error);
       }
     };
 
     getCurrencyData();
-  }, [baseCurrency, targetCurrency]);
+  }, [baseCurrency]);
+
+  useEffect(() => {
+    debouncedFetchTargetCurrencyData(targetCurrency); // Call debounced function when target currency changes
+  }, [targetCurrency, debouncedFetchTargetCurrencyData]);
 
   const handleBaseCurrencyChange = (event) => {
     setBaseCurrency(event.target.value);
@@ -45,11 +60,16 @@ const CurrencyConverter = () => {
     const tempCurrency = baseCurrency;
     setBaseCurrency(targetCurrency);
     setTargetCurrency(tempCurrency);
-    setAmount((prevAmount) => (rates[targetCurrency] ? (prevAmount * rates[targetCurrency]) : prevAmount));
+    setAmount((prevAmount) =>
+      rates[targetCurrency] ? prevAmount * rates[targetCurrency] : prevAmount
+    );
   };
 
   return (
-    <div className="currency-converter max-w-lg mx-auto p-6 rounded-lg shadow-md" style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
+    <div
+      className="currency-converter max-w-lg mx-auto p-6 rounded-lg shadow-md"
+      style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}
+    >
       <h1 className="text-2xl font-bold mb-4">Currency Converter</h1>
       <CurrencyInput amount={amount} setAmount={setAmount} />
       <div className="grid grid-rows-2 gap-4">
@@ -71,7 +91,10 @@ const CurrencyConverter = () => {
         />
       </div>
       <FlipButton handleFlipCurrencies={handleFlipCurrencies} />
-      <Link to="/multi-currency" className="mt-4 block text-center text-indigo-600 hover:text-indigo-900 transition duration-300 ease-in-out">
+      <Link
+        to="/multi-currency"
+        className="mt-4 block text-center text-indigo-600 hover:text-indigo-900 transition duration-300 ease-in-out"
+      >
         Go to Multi-Currency Converter
       </Link>
     </div>

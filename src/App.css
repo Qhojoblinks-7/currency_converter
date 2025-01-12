@@ -52,3 +52,77 @@ html {
   animation: colorAnimation 15s infinite alternate;
 }
 
+nav {
+  background-color: #1D4ED8; /* Blue color */
+  padding: 1rem;
+}
+
+nav a {
+  color: white;
+  margin-right: 1rem;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+
+.calculator {
+  width: 320px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.screen {
+  margin-bottom: 20px;
+}
+
+.input {
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.result {
+  font-size: 18px;
+  color: #888;
+  text-align: right;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.button-row button {
+  font-size: 20px;
+  padding: 20px;
+  border: none;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-row button:hover {
+  background-color: #ddd;
+}
+
+button:active {
+  background-color: #ccc;
+}
+
+.action-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.equal-button {
+  background-color: #2196F3;
+  color: white;
+}
+
