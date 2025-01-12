@@ -15,7 +15,7 @@ const Home = () => {
       {/* Hero Section: Main intro with a title, description, and call-to-action button */}
       <header className="hero-section">
         <div className="hero-content">
-          <h1 className="hero-title">Currency Converter</h1> {/* Main title */}
+          <h1 className="hero-title">AfricConvert</h1> {/* Main title */}
           <p className="hero-description">
             Convert currencies, explore historical trends, and make informed decisions.
           </p> {/* Description of the app */}
@@ -82,7 +82,8 @@ const Home = () => {
       <section className="about-section">
         <h2 className="section-title">About This Project</h2> {/* Title of the section */}
         <p className="about-description">
-          Built with precision and care, this platform empowers users with accurate currency conversions and trends, helping them make smarter financial decisions.
+        AfricConvert aims to empower individuals and businesses by providing currency conversion tools, educational resources, and analytics to enhance financial literacy and decision-making. The platform will integrate real-time data with comprehensive insights, ensuring users gain both practical tools and actionable knowledge about global finance.
+
         </p> {/* Description of the project */}
       </section>
 
